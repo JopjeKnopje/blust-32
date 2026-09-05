@@ -1,0 +1,10 @@
+[package]
+name = "rust-embedded-test"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+
+[dependencies.stm32f1]
+version = "0.16.0"
+features = ["stm32f103", "rt"]
