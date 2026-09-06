@@ -43,6 +43,6 @@ hooks = [
     language = "system",
     types = ["rust"],
     pass_filenames = false,
-    entry = "cargo clippy --target thumbv7m-none-eabi --all-features -- -D warnings",
+    entry = "cargo clippy --fix --allow-dirty --target thumbv7m-none-eabi --all-features -- -D warnings",
   }
 ]
