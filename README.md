@@ -25,6 +25,11 @@ STM32 Bluepill
 ![bluepill-pinout](https://github.com/stm32-rs/stm32f1xx-hal/blob/master/BluePillPinout.jpg?raw=true)
 
 ### Boot headers
+The 2 boot headers on the stm32 can be left at their `0` position.
+> [!NOTE]
+> I haven't tested putting them in a different position because flashing with the ST-LINK V2 just worked.
 
+Read more about the boot process here.
+- [STM32 - boot process](https://community.st.com/stm32-mcus-60/faq-stm32-boot-process-37)
 
 https://github.com/stm32-rs/stm32-rs
