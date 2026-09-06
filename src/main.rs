@@ -3,9 +3,10 @@
 #![no_main]
 
 use defmt_rtt as _;
-use panic_halt as _;
 
 use nb::block;
+
+use panic_probe as _;
 
 use cortex_m_rt::entry;
 use stm32f1xx_hal::{pac, prelude::*, timer::Timer};
@@ -27,14 +28,15 @@ fn main() -> ! {
     let mut led = gpioc.pc13.into_push_pull_output(&mut gpioc.crh);
     // Configure the syst timer to trigger an update every second
     let mut timer = Timer::syst(cp.SYST, &rcc.clocks).counter_hz();
-    timer.start(5.Hz()).unwrap();
+    timer.start(10.Hz()).unwrap();
 
-    // Wait for the timer to trigger an update and change the state of the LED
-    loop {
+    for _ in 1..10 {
         block!(timer.wait()).unwrap();
         led.set_high();
         defmt::info!("test");
         block!(timer.wait()).unwrap();
         led.set_low();
     }
+    panic!("123")
+    // Wait for the timer to trigger an update and change the state of the LED
 }

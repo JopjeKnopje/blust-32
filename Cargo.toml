@@ -9,9 +9,10 @@ nb = "1"
 cortex-m = "0.7.7"
 cortex-m-rt = "0.7.5"
 # Panic behaviour, see https://crates.io/keywords/panic-impl for alternatives
-panic-halt = "1.0.0"
+# panic-halt = "1.0.0"
 defmt = "1.0"
 defmt-rtt = "1.0"
+panic-probe = "1.0.0"
 
 [dependencies.stm32f1xx-hal]
 version = "0.11.0"
