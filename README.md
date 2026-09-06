@@ -1,6 +1,30 @@
-#  rust embedded test
+# Rust embedded experimentation
+
+## Repo config
+### [`.cargo/config.toml`](.cargo/config.toml)
+Configures the defaults for the cargo command in our case we've.
 
 
+
+## probe-rs
+Instead of using `cargo embed` (which is being phased out) we use [probe-rs](https://probe.rs/docs/tools/which-tool/). Which is a really faken cool tool.
+You can write tiny rust [scripts](https://probe.rs/docs/library/quickstart/) for it to automate debugging. Its also used for [RTT](https://kb.segger.com/RTT) - which appeartanly is what rust people use for debugging instead of serial prints.
+
+Probe-rs supports the jlinkv2 and a bunch of other hardware programmers / debuggers.
+
+
+
+
+## Which libary or HAL to use?
+After some searching I've come across `Embassy` and the official `embedded-hal`.
+Embassy looks very much like a high level (RTOS?) supporting async and other wild stuff I won't need.
+The embedded-hal on the other hand just implements traits making it system agnostic, if you want to run it on and STM32 you'd have to install a package (in my case `cortex-m`) which implements the traits for that specific platform. This sounds pretty cool and handy. It also looks like the embedded-hal is a bit more low level than Embassy.
+
+## Hardware
+STM32 Bluepill 
+![bluepill-pinout](https://github.com/stm32-rs/stm32f1xx-hal/blob/master/BluePillPinout.jpg?raw=true)
+
+### Boot headers
 
 
 https://github.com/stm32-rs/stm32-rs

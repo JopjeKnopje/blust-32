@@ -1,10 +1,3 @@
-//! Blinks an LED
-//!
-//! This assumes that a LED is connected to pc13 as is the case on the blue pill board.
-//!
-//! Note: Without additional hardware, PC13 should not be used to drive an LED, see page 5.1.2 of
-//! the reference manual for an explanation. This is not an issue on the blue pill.
-
 #![deny(unsafe_code)]
 #![no_std]
 #![no_main]
@@ -34,12 +27,13 @@ fn main() -> ! {
     let mut led = gpioc.pc13.into_push_pull_output(&mut gpioc.crh);
     // Configure the syst timer to trigger an update every second
     let mut timer = Timer::syst(cp.SYST, &rcc.clocks).counter_hz();
-    timer.start(1.Hz()).unwrap();
+    timer.start(5.Hz()).unwrap();
 
     // Wait for the timer to trigger an update and change the state of the LED
     loop {
         block!(timer.wait()).unwrap();
         led.set_high();
+        defmt::info!("test");
         block!(timer.wait()).unwrap();
         led.set_low();
     }
