@@ -13,6 +13,7 @@ cortex-m-rt = "0.7.5"
 defmt = "1.0"
 defmt-rtt = "1.0"
 panic-probe = "1.0.0"
+ssd1306 = "0.10.0"
 
 [dependencies.stm32f1xx-hal]
 version = "0.11.0"

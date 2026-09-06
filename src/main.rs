@@ -30,13 +30,11 @@ fn main() -> ! {
     let mut timer = Timer::syst(cp.SYST, &rcc.clocks).counter_hz();
     timer.start(10.Hz()).unwrap();
 
-    for _ in 1..10 {
+    loop {
         block!(timer.wait()).unwrap();
         led.set_high();
         defmt::info!("test");
         block!(timer.wait()).unwrap();
         led.set_low();
     }
-    panic!("123")
-    // Wait for the timer to trigger an update and change the state of the LED
 }
