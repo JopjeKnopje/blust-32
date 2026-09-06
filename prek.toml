@@ -1,0 +1,48 @@
+fail_fast = true
+
+[[repos]]
+repo = "builtin"
+hooks = [
+  { id = "trailing-whitespace", exclude = { glob = "CHANGELOG.md" } },
+  { id = "mixed-line-ending" },
+  { id = "check-toml" },
+  { id = "end-of-file-fixer" },
+]
+
+
+[[repos]]
+repo = "https://github.com/executablebooks/mdformat"
+rev = "1.0.0"
+hooks = [
+  {
+    id = "mdformat",
+    language = "python",
+    args = ["--number", "--compact-tables", "--align-semantic-breaks-in-lists"],
+    additional_dependencies = [
+      "mdformat-frontmatter==2.1.2",
+      "mdformat-mkdocs==5.2.1",
+      "mdformat-simple-breaks==0.1.0",
+    ]
+  }
+]
+
+[[repos]]
+repo = "local"
+hooks = [
+  {
+    id = "cargo-fmt",
+    name = "cargo fmt",
+    entry = "cargo fmt --",
+    language = "system",
+    types = ["rust"],
+    pass_filenames = false,
+  },
+  {
+    id = "cargo-clippy",
+    name = "cargo clippy",
+    language = "system",
+    types = ["rust"],
+    pass_filenames = false,
+    entry = "cargo clippy --target thumbv7m-none-eabi --all-features -- -D warnings",
+  }
+]
