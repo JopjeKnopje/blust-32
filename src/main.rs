@@ -2,8 +2,8 @@
 #![no_std]
 #![no_main]
 
-use panic_halt as _;
 use defmt_rtt as _;
+use panic_halt as _;
 
 use nb::block;
 
