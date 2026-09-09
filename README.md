@@ -30,3 +30,8 @@ Read more about the boot process here.
 - [STM32 - boot process](https://community.st.com/stm32-mcus-60/faq-stm32-boot-process-37)
 
 https://github.com/stm32-rs/stm32-rs
+
+## Resources
+
+- [i2c-bme280 example](https://github.com/stm32-rs/stm32f1xx-hal/blob/master/examples/i2c-bme280/src/main.rs#L33-L33)
+- [Demystifying Rust Embedded HAL | split() constrain()](https://dev.to/theembeddedrustacean/demystifying-rust-embedded-hal-split-and-constrain-methods-591e)
