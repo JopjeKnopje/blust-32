@@ -1,34 +1,26 @@
-#![deny(unsafe_code)]
+//#![deny(unsafe_code)]
 #![no_std]
 #![no_main]
 
 use defmt::println;
 use defmt_rtt as _;
-
-use embedded_graphics::{
-    Drawable,
-    geometry::Point,
-    image::{Image, ImageRaw},
-    pixelcolor::BinaryColor,
-};
-use nb::block;
-
 use panic_probe as _;
 
+use core::fmt::Write;
+
 use cortex_m_rt::entry;
-use ssd1306::{I2CDisplayInterface, Ssd1306, mode::DisplayConfig, prelude::Brightness, size::{DisplaySize96x16, DisplaySize128x32, DisplaySize128x64}};
+use ssd1306::{I2CDisplayInterface, Ssd1306, mode::DisplayConfig, prelude::Brightness};
 use stm32f1xx_hal::{
     i2c::{DutyCycle, Mode},
     pac,
     prelude::*,
     rcc,
-    timer::Timer,
 };
 
 #[entry]
 fn main() -> ! {
     // Get access to the core peripherals from the cortex-m crate
-    let cp = cortex_m::Peripherals::take().unwrap();
+    let _cp = cortex_m::Peripherals::take().unwrap();
     // Get access to the device specific peripherals from the peripheral access crate
     let pac = pac::Peripherals::take().unwrap();
 
@@ -69,28 +61,22 @@ fn main() -> ! {
     let interface = I2CDisplayInterface::new(i2c);
     let mut display = Ssd1306::new(
         interface,
-        DisplaySize128x64,
+        ssd1306::size::DisplaySize128x64,
         ssd1306::rotation::DisplayRotation::Rotate0,
     )
-    .into_buffered_graphics_mode();
+    .into_terminal_mode();
     println!("done setting up display");
-
 
     display.init().unwrap();
     println!("display initialized");
+
+    display.clear().unwrap();
+    println!("display cleared");
+
     display.set_brightness(Brightness::BRIGHTEST).unwrap();
     println!("brightness set");
 
-    let raw: ImageRaw<BinaryColor> = ImageRaw::new(include_bytes!("./rust.raw"), 64);
-    let im = Image::new(&raw, Point::new(32, 0));
-    im.draw(&mut display).unwrap();
-    println!("image drawn");
+    _ = write!(display, "test123");
 
-    display.flush().unwrap();
-    println!("display flushed");
-
-    loop
-    {
-
-    }
+    loop {}
 }
