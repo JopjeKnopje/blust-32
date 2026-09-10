@@ -1,5 +1,37 @@
 # Rust embedded experimentation
 
+## Installation
+
+install [rustup](https://rustup.rs/)
+
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+```
+
+install compilation target using
+
+```bash
+rustup target add thumbv7m-none-eabi
+```
+
+Install [cargo-binstall](https://github.com/cargo-bins/cargo-binstall#linux-and-macos)
+
+```bash
+curl -L --proto '=https' --tlsv1.2 -sSf https://raw.githubusercontent.com/cargo-bins/cargo-binstall/main/install-from-binstall-release.sh | bash
+```
+
+Install [probe-rs](https://probe.rs/docs/getting-started/installation/)
+
+```bash
+cargo binstall probe-rs-tools
+```
+
+### Toolchain
+
+```bash
+prek install
+```
+
 ## probe-rs
 
 Instead of using `cargo embed` (which is being phased out) we use [probe-rs](https://probe.rs/docs/tools/which-tool/). Which is a really faken cool tool.
