@@ -16,7 +16,7 @@ use nb::block;
 use panic_probe as _;
 
 use cortex_m_rt::entry;
-use ssd1306::{I2CDisplayInterface, Ssd1306, mode::DisplayConfig, size::DisplaySize128x64};
+use ssd1306::{I2CDisplayInterface, Ssd1306, mode::DisplayConfig, prelude::Brightness, size::{DisplaySize96x16, DisplaySize128x32, DisplaySize128x64}};
 use stm32f1xx_hal::{
     i2c::{DutyCycle, Mode},
     pac,
@@ -75,29 +75,22 @@ fn main() -> ! {
     .into_buffered_graphics_mode();
     println!("done setting up display");
 
+
     display.init().unwrap();
     println!("display initialized");
+    display.set_brightness(Brightness::BRIGHTEST).unwrap();
+    println!("brightness set");
 
     let raw: ImageRaw<BinaryColor> = ImageRaw::new(include_bytes!("./rust.raw"), 64);
     let im = Image::new(&raw, Point::new(32, 0));
     im.draw(&mut display).unwrap();
+    println!("image drawn");
 
     display.flush().unwrap();
+    println!("display flushed");
 
-    // Acquire the GPIOC peripheral
-    let mut gpioc = pac.GPIOC.split(&mut rcc);
+    loop
+    {
 
-    // Configure gpio C pin 13 as a push-pull output. The `crh` register is passed to the function
-    // in order to configure the port. For pins 0-7, crl should be passed instead.
-    let mut led = gpioc.pc13.into_push_pull_output(&mut gpioc.crh);
-    // Configure the syst timer to trigger an update every second
-    let mut timer = Timer::syst(cp.SYST, &rcc.clocks).counter_hz();
-    timer.start(10.Hz()).unwrap();
-
-    loop {
-        block!(timer.wait()).unwrap();
-        led.set_high();
-        block!(timer.wait()).unwrap();
-        led.set_low();
     }
 }
