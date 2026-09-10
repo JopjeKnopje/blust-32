@@ -31,6 +31,10 @@ Read more about the boot process here.
 
 https://github.com/stm32-rs/stm32-rs
 
+## Todo
+
+- [ ] Read about different kinds of `delay` function, I'm pretty sure they're all using hardware timers. But I'm curious to see how they're abstracted away. Also have a look at how arduino implements them (I think its just a bunch of `NOOP`s scaled to the core's clock)
+
 ## Resources
 
 - [i2c-bme280 example](https://github.com/stm32-rs/stm32f1xx-hal/blob/master/examples/i2c-bme280/src/main.rs#L33-L33)

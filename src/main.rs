@@ -76,7 +76,7 @@ fn main() -> ! {
     println!("done setting up display");
 
     display.init().unwrap();
-    println!("done setting up display");
+    println!("display initialized");
 
     let raw: ImageRaw<BinaryColor> = ImageRaw::new(include_bytes!("./rust.raw"), 64);
     let im = Image::new(&raw, Point::new(32, 0));
