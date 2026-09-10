@@ -5,7 +5,6 @@
 use defmt::println;
 use defmt_rtt as _;
 
-use display_interface::DisplayError;
 use embedded_graphics::{
     Drawable,
     geometry::Point,
@@ -76,11 +75,7 @@ fn main() -> ! {
     .into_buffered_graphics_mode();
     println!("done setting up display");
 
-    match display.init().unwrap() {
-        x => x,
-        DisplayError(x) => x,
-    }
-
+    display.init().unwrap();
     println!("done setting up display");
 
     let raw: ImageRaw<BinaryColor> = ImageRaw::new(include_bytes!("./rust.raw"), 64);
